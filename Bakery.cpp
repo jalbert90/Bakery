@@ -33,25 +33,15 @@ int main() {
 		mp[a[i]] = 1;
 	}
 
-	sort(r.begin(), r.end(), [](road a, road b) {return a.u < b.u;});
-
-	for (int i = 0; i < k; i++) {
-		int key = a[i];
-		vector<int>::iterator it;
-		vector<road>::iterator fit, lit;
-		int fio, ubnd;
-		fit = find_if(r.begin(), r.end(), [key](road a) {return a.u == key;});
-		fio = fit - r.begin();
-		lit = upper_bound(fit, r.end(), key, [](int value, road a) {return value < a.u;});
-		ubnd = lit - r.begin();
-		for (int j = fio; j < ubnd; j++) {
-			if (r[j].u == a[i]) {
-				if (mp[r[j].v] == 0) {
-					minAmt = min(minAmt, r[j].l);
-				}
+	for (int i = 0; i < 2 * m; i++) {
+		if (mp[r[i].u] == 0) { continue; }
+		else {
+			if (mp[r[i].v] == 0) {
+				minAmt = min(minAmt, r[i].l);
 			}
 		}
 	}
+
 	if (minAmt == (int)1e9 + 5) {
 		cout << -1 << endl;
 	}
